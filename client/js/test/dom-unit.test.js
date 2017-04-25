@@ -11,6 +11,12 @@ describe('dom-util', () => {
         const el = createTH();
         expect(el.tagName).toBe('TH');
       });
+
+      it('sets the text of the TH', () => {
+        const text = 'I am a wonderful test of TH text';
+        const el = createTH(text);
+        expect(el.textContent).toBe(text);
+      });
     });
 
     describe('createTR', () => {

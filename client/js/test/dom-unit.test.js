@@ -1,7 +1,7 @@
 const { createTR,
         createTH,
         createTD,
-        removeChild } = require('../dom-util');
+        removeChildren } = require('../dom-util');
 
 describe('dom-util', () => {
 
@@ -46,7 +46,7 @@ describe('dom-util', () => {
         expect(parent.childNodes[0]).toBe(child);
 
         // execute code under test
-        removeChild(parent);
+        removeChildren(parent);
 
         // inspect resulting state
         expect(parent.childNodes.length).toBe(0);

@@ -1,4 +1,4 @@
-const removeChild = function(parentEl) {
+const removeChildren = function(parentEl) {
   while (parentEl.firstChild) {
     parentEl.removeChild(parentEl.firstChild);
   }
@@ -22,5 +22,5 @@ module.exports = {
   createTR: createTR,
   createTD: createTD,
   createTH: createTH,
-  removeChild: removeChild
+  removeChildren: removeChildren
 }

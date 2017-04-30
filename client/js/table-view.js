@@ -79,9 +79,17 @@ class TableView {
     // if it has a value push that value to an array
     // reduce that array and push total to sum row for that column. 
     // repeat for each column 
+
+    //BUGS
+    // resolved // first input cannot be negative
+    // column total cannot be zero
+    // 
+
     console.log("start");
     let sums = [];
     
+    const fragment = document.createDocumentFragment();
+    const tr = createTR();
     for (let col = 0; col < this.model.numCols; col++) {
       let columnValues = [];
       for (let row = 0; row < this.model.numRows; row++) {
@@ -93,59 +101,29 @@ class TableView {
         } else {
           columnValues.push(parseInt(value));
         }
-        console.log('column values: ' + columnValues);
+        //console.log('column values: ' + columnValues);
       }
 
-      const columnSum = columnValues.reduce(function(a, b) { return a + b; }, 0);
-      sums.push(columnSum);
-      console.log('column sum: ' + columnSum);
-
+      if (columnValues.length === 0) {
+        const columnSum = NaN;
+        sums.push(columnSum);
+        //console.log('column sum: ' + columnSum);
+      } else {
+        const columnSum = columnValues.reduce(function(a, b) { return a + b; });
+        sums.push(columnSum);
+        //console.log('column sum: ' + columnSum);
+      }
+      //console.log('sums: ' + sums[col]);
+      const td = createTD(sums[col]);
+      tr.appendChild(td);
+      
     }
    
     console.log('sums: ' + sums);
 
-    const fragment = document.createDocumentFragment();
-    const tr = createTR();
-    for (let col = 0; col < this.model.numCols; col++) {
-      const td = createTD(sums[col]);
-      tr.appendChild(td);
-    }
-
     fragment.appendChild(tr);
     removeChildren(this.sumRowEl);
     this.sumRowEl.appendChild(fragment);
-
-   // //trash
-   //  const fragment = document.createDocumentFragment();
-   //  const tr = createTR();
-   //  for (let col = 0; col < this.model.numCols; col++) {
-   //    const row = 20;
-   //    const sumPosition = {col: col, row: row};
-   //    //console.log(sumPosition);
-   //    const sumValue = this.model.getValue(sumPosition);
-   //    console.log(sumValue);
-
-   //    const currentPosition = this.currentCellLocation
-   //    //console.log(currentPosition);
-
-   //    const currentValue = this.formulaBarEl.value;
-   //    //console.log('current value: ' + currentValue);
-
-   //    const td = createTD(currentValue);
-   //    tr.appendChild(td);
-
-   //    // if(col === this.currentCellLocation.col) {
-   //    //   const td = createTD(sumValue + currentValue);
-   //    //   tr.appendChild(td)
-   //    // } else {
-   //    //   const td = createTD(sumValue);
-   //    //   tr.appendChild(td)
-   //    // }
-   // fragment.appendChild(tr);
-   //  removeChildren(this.sumRowEl);
-   //  this.sumRowEl.appendChild(fragment);
-
-    
   }
 
   attachEventHandlers() {

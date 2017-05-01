@@ -74,10 +74,6 @@ class TableView {
   }
 
   renderTableFooter() {
-    //BUGS
-    // resolved // first input cannot be negative
-    // column total cannot be zero
-    // 
     removeChildren(this.footerRowEl);
     for (let col = 0; col < this.model.numCols; col++) {
       let columnSum = 0;
@@ -89,14 +85,7 @@ class TableView {
           console.log(columnSum);
         } 
       }
-
-      if (columnSum === 0 && columnSum.length > 0) {
-        const el = document.createElement('TD');
-        el.innerText = '0';
-        this.footerRowEl.appendChild(el);
-      } else {
-        this.footerRowEl.appendChild(createTD(columnSum));
-      }
+      this.footerRowEl.appendChild(createTD(columnSum));
     }
   }
 

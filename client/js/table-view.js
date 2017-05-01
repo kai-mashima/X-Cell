@@ -17,7 +17,7 @@ class TableView {
     this.headerRowEl = document.querySelector('THEAD TR');
     this.sheetBodyEl = document.querySelector('TBODY');
     this.formulaBarEl = document.querySelector('#formula-bar');
-    this.sumRowEl = document.querySelector('TFOOT');
+    this.footerRowEl = document.querySelector('TFOOT TR');
   }
 
   initCurrentCell() {
@@ -38,7 +38,7 @@ class TableView {
   renderTable() {
     this.renderTableHeader();
     this.renderTableBody();
-    this.renderSumRow();
+    this.renderTableFooter();
   }
 
   renderTableHeader() {
@@ -73,57 +73,31 @@ class TableView {
     this.sheetBodyEl.appendChild(fragment);
   }
 
-  renderSumRow() {
-    // for each column iterate down the rows if a cell is empty ignore, 
-    // get column row locations using this.model.getValue(position)
-    // if it has a value push that value to an array
-    // reduce that array and push total to sum row for that column. 
-    // repeat for each column 
-
+  renderTableFooter() {
     //BUGS
     // resolved // first input cannot be negative
     // column total cannot be zero
     // 
-
-    console.log("start");
-    let sums = [];
-    
-    const fragment = document.createDocumentFragment();
-    const tr = createTR();
+    removeChildren(this.footerRowEl);
     for (let col = 0; col < this.model.numCols; col++) {
-      let columnValues = [];
+      let columnSum = 0;
       for (let row = 0; row < this.model.numRows; row++) {
-        let position = {col: col, row: row};
-        let value = this.model.getValue(position);
-        //console.log(value);
-        if(isNaN(value)) {
-          
-        } else {
-          columnValues.push(parseInt(value));
-        }
-        //console.log('column values: ' + columnValues);
+        const position = {col: col, row: row};
+        const value = parseInt(this.model.getValue(position));
+        if (!isNaN(value)) {
+          columnSum += value;
+          console.log(columnSum);
+        } 
       }
 
-      if (columnValues.length === 0) {
-        const columnSum = NaN;
-        sums.push(columnSum);
-        //console.log('column sum: ' + columnSum);
+      if (columnSum === 0 && columnSum.length > 0) {
+        const el = document.createElement('TD');
+        el.innerText = '0';
+        this.footerRowEl.appendChild(el);
       } else {
-        const columnSum = columnValues.reduce(function(a, b) { return a + b; });
-        sums.push(columnSum);
-        //console.log('column sum: ' + columnSum);
+        this.footerRowEl.appendChild(createTD(columnSum));
       }
-      //console.log('sums: ' + sums[col]);
-      const td = createTD(sums[col]);
-      tr.appendChild(td);
-      
     }
-   
-    console.log('sums: ' + sums);
-
-    fragment.appendChild(tr);
-    removeChildren(this.sumRowEl);
-    this.sumRowEl.appendChild(fragment);
   }
 
   attachEventHandlers() {
@@ -135,7 +109,7 @@ class TableView {
     const value = this.formulaBarEl.value;
     this.model.setValue(this.currentCellLocation, value);
     this.renderTableBody();
-    this.renderSumRow();
+    this.renderTableFooter();
   }
 
   handleSheetClick(evt) {

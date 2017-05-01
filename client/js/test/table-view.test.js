@@ -118,4 +118,25 @@ describe('table-view', () => {
     });
   });
 
+  describe('table footer', () => {
+    it('sums a column of positive numbers', () => {
+
+    });
+
+    it('sums a column of negative numbers', () => {
+
+    });
+
+    it('sums a column of numbers and ignores cells with strings', () => {
+
+    });
+
+    it('sums a column of positive and negative numbers that adds up to 0', () => {
+
+    });
+
+
+
+  })
+
 });

@@ -119,21 +119,38 @@ describe('table-view', () => {
   });
 
   describe('table footer', () => {
-    it('sums a column of positive numbers', () => {
+    // it('sums a column of positive numbers', () => {
+    //   // set the initial stat
+    //   const model = new TableModel(3, 3);
+    //   const view = new TableView(model);
+    //   view.init();
 
-    });
+    //   //inspect initial state
+    //   let tfs = document.querySelectorAll('TFOOT TR');
+    //   expect(tfs[0].cells[1].textContent).toBe('0');
 
-    it('sums a column of negative numbers', () => {
+    //   // simulate user action
+    //   model.setValue({col: 0, row: 1}, '2');
+    //   model.setValue({col: 0, row: 2}, '2');
+    //   model.setValue({col: 0, row: 3}, '5');
+    //   view.handleFormulaBarChange();
 
-    });
+    //   // inspect the resulting state
+    //   tfs = document.querySelectorAll('TFOOT TR');
+    //   expect(tfs[0].cells[0].textContent).toBe('9');
+    // });
 
-    it('sums a column of numbers and ignores cells with strings', () => {
+    // it('sums a column of negative numbers', () => {
 
-    });
+    // });
 
-    it('sums a column of positive and negative numbers that adds up to 0', () => {
+    // it('sums a column of numbers and ignores cells with strings', () => {
 
-    });
+    // });
+
+    // it('sums a column of positive and negative numbers that adds up to 0', () => {
+
+    // });
 
 
 

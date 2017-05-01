@@ -7,7 +7,9 @@ const removeChildren = function(parentEl) {
 const createEl = function(tagName) {
   return function(text) {
     const el = document.createElement(tagName);
-    if (!isNaN(text)) {
+    if (text === 0) {
+      el.textContent = text;
+    } else if (text) {
       el.textContent = text;
     }
     return el;

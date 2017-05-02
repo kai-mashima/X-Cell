@@ -6,8 +6,8 @@ describe('table-view', () => {
 
   beforeEach(() => {
     // load the HTML skeleton from disc to parse into the DOM
-    const fixurePath = './client/js/test/fixtures/sheet-container.html';
-    const html = fs.readFileSync(fixurePath, 'utf8');
+    const fixturePath = './client/js/test/fixtures/sheet-container.html';
+    const html = fs.readFileSync(fixturePath, 'utf8');
     document.documentElement.innerHTML = html;
   });
 
@@ -120,30 +120,30 @@ describe('table-view', () => {
 
   describe('table footer', () => {
     it('sums a column of positive numbers', () => {
-      // set the initial stat
+      // set the initial state
       const model = new TableModel(3, 3);
       const view = new TableView(model);
       view.init();
 
       //inspect initial state
-      let tfs = document.querySelector('TFOOT TR');
-      expect(tfs.cells[1].textContent).toBe('0');
+      let footerRow = document.querySelector('TFOOT TR');
+      expect(footerRow.cells[1].textContent).toBe('0');
 
       // simulate user action
-      model.setValue({col: 1, row: 1}, '2');
-      model.setValue({col: 1, row: 2}, '3');
-      model.setValue({col: 1, row: 3}, '5');
+      model.setValue({col: 1, row: 0}, '2');
+      model.setValue({col: 1, row: 1}, '3');
+      model.setValue({col: 1, row: 2}, '5');
       view.renderTableBody();
       view.renderTableFooter();
 
       // inspect the resulting table state
-      let tbs = document.querySelectorAll('TBODY TR');
-      expect(tbs[1].cells[1].textContent).toBe('2');
+      let rows = document.querySelectorAll('TBODY TR');
+      expect(rows[1].cells[1].textContent).toBe('3');
       view.renderTableFooter();
-      
+
       // inspect the resulting footer state
-      tfs = document.querySelector('TFOOT TR');
-      expect(tfs.cells[1].textContent).toBe('10');
+      const footerCells = document.querySelectorAll('TFOOT TD');
+      expect(footerCells[1].textContent).toBe('10');
     });
 
     // it('sums a column of negative numbers', () => {

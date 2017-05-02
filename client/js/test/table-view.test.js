@@ -119,7 +119,78 @@ describe('table-view', () => {
   });
 
   describe('table footer', () => {
-    // it('sums a column of positive numbers', () => {
+    it('sums a column of positive numbers', () => {
+      // set the initial stat
+      const model = new TableModel(3, 3);
+      const view = new TableView(model);
+      view.init();
+
+      //inspect initial state
+      let tfs = document.querySelector('TFOOT TR');
+      expect(tfs.cells[1].textContent).toBe('0');
+
+      // simulate user action
+      model.setValue({col: 1, row: 1}, '2');
+      model.setValue({col: 1, row: 2}, '3');
+      model.setValue({col: 1, row: 3}, '5');
+      view.renderTableBody();
+      view.renderTableFooter();
+
+      // inspect the resulting table state
+      let tbs = document.querySelectorAll('TBODY TR');
+      expect(tbs[1].cells[1].textContent).toBe('2');
+      view.renderTableFooter();
+      
+      // inspect the resulting footer state
+      tfs = document.querySelector('TFOOT TR');
+      expect(tfs.cells[1].textContent).toBe('10');
+    });
+
+    // it('sums a column of negative numbers', () => {
+    //   // set the initial stat
+    //   const model = new TableModel(3, 3);
+    //   const view = new TableView(model);
+    //   view.init();
+
+    //   //inspect initial state
+    //   let tfs = document.querySelectorAll('TFOOT TR');
+    //   expect(tfs[0].cells[1].textContent).toBe('0');
+
+    //   // simulate user action
+    //   model.setValue({col: 0, row: 1}, '-2');
+    //   model.setValue({col: 0, row: 2}, '-2');
+    //   model.setValue({col: 0, row: 3}, '-5');
+    //   view.renderTableBody();
+    //   view.renderTableFooter();
+
+    //   // inspect the resulting state
+    //   tfs = document.querySelectorAll('TFOOT TR');
+    //   expect(tfs[0].cells[0].textContent).toBe('-9');
+    // });
+
+    // it('sums a column of numbers and ignores cells with strings', () => {
+    //   // set the initial stat
+    //   const model = new TableModel(3, 3);
+    //   const view = new TableView(model);
+    //   view.init();
+
+    //   //inspect initial state
+    //   let tfs = document.querySelectorAll('TFOOT TR');
+    //   expect(tfs[0].cells[1].textContent).toBe('0');
+
+    //   // simulate user action
+    //   model.setValue({col: 0, row: 1}, 'apples');
+    //   model.setValue({col: 0, row: 2}, '2');
+    //   model.setValue({col: 0, row: 3}, 'TREES');
+    //   view.renderTableBody();
+    //   view.renderTableFooter();
+
+    //   // inspect the resulting state
+    //   tfs = document.querySelectorAll('TFOOT TR');
+    //   expect(tfs[0].cells[0].textContent).toBe('2');
+    // });
+
+    // it('sums a column of positive and negative numbers that adds up to 0', () => {
     //   // set the initial stat
     //   const model = new TableModel(3, 3);
     //   const view = new TableView(model);
@@ -132,24 +203,13 @@ describe('table-view', () => {
     //   // simulate user action
     //   model.setValue({col: 0, row: 1}, '2');
     //   model.setValue({col: 0, row: 2}, '2');
-    //   model.setValue({col: 0, row: 3}, '5');
-    //   view.handleFormulaBarChange();
+    //   model.setValue({col: 0, row: 3}, '-4');
+    //   view.renderTableBody();
+    //   view.renderTableFooter();
 
     //   // inspect the resulting state
     //   tfs = document.querySelectorAll('TFOOT TR');
-    //   expect(tfs[0].cells[0].textContent).toBe('9');
-    // });
-
-    // it('sums a column of negative numbers', () => {
-
-    // });
-
-    // it('sums a column of numbers and ignores cells with strings', () => {
-
-    // });
-
-    // it('sums a column of positive and negative numbers that adds up to 0', () => {
-
+    //   expect(tfs[0].cells[0].textContent).toBe('0');
     // });
 
 

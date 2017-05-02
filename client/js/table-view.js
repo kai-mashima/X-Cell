@@ -82,7 +82,6 @@ class TableView {
         const value = parseInt(this.model.getValue(position));
         if (!isNaN(value)) {
           columnSum += value;
-          console.log(columnSum);
         } 
       }
       this.footerRowEl.appendChild(createTD(columnSum));
